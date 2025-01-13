@@ -1,4 +1,5 @@
 import { useMemo, useRef } from 'react';
+import GalaxyScene from './GalaxyScene';
 
 interface StarfieldProps {
   count?: number;
@@ -17,16 +18,19 @@ export default function Starfield({ count = 2000 }: StarfieldProps) {
   }, [count]);
 
   return (
-    <points ref={points}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach='attributes-position'
-          count={particlePositions.length / 3}
-          array={particlePositions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial size={0.015} color='#5786F5' />
-    </points>
+    <>
+      <GalaxyScene />
+      <points ref={points}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach='attributes-position'
+            count={particlePositions.length / 3}
+            array={particlePositions}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <pointsMaterial size={0.015} color='#5786F5' />
+      </points>
+    </>
   );
 }

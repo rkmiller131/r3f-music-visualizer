@@ -1,45 +1,28 @@
-import { Environment, OrbitControls } from '@react-three/drei';
-
-// export default function Scene() {
-//   return (
-//     <>
-//       <Environment files='/galaxy.jpg' background />
-//       <ambientLight />
-//       <OrbitControls />
-//     </>
-//   );
-// }
-
-import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
 import { useRef, useEffect } from "react";
+import { useFrame } from "@react-three/fiber";
+import { AudioLoader, AudioListener, Audio, AudioAnalyser } from "three";
 import { fragmentShader, vertexShader } from "./shaders";
 
-export default function Scene2() {
-  const analyserRef = useRef(null);
+const AUDIO_FILE = "/Something.mp3";
+
+export default function VisualizerBars() {
+  const analyserRef = useRef<AudioAnalyser | null>(null);
   const uniformsRef = useRef({
     uAmplitude: { value: 0 },
   });
 
   useEffect(() => {
     const fftSize = 32;
-    const listener = new THREE.AudioListener();
-    const audio = new THREE.Audio(listener);
+    const listener = new AudioListener();
+    const audio = new Audio(listener);
 
-    const file = "/Something.mp3";
-    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
-      const loader = new THREE.AudioLoader();
-      loader.load(file, (buffer) => {
-        audio.setBuffer(buffer);
-        audio.play();
-      });
-    } else {
-      const mediaElement = new Audio(file);
-      mediaElement.play();
-      audio.setMediaElementSource(mediaElement);
-    }
+    const loader = new AudioLoader();
+    loader.load(AUDIO_FILE, (buffer) => {
+      audio.setBuffer(buffer);
+      audio.play();
+    });
 
-    analyserRef.current = new THREE.AudioAnalyser(audio, fftSize);
+    analyserRef.current = new AudioAnalyser(audio, fftSize);
 
     return () => {
       audio.stop();
