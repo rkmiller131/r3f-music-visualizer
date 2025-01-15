@@ -5,7 +5,7 @@ export default function GalaxyScene() {
     <>
       <Environment files='/galaxy.jpg' background />
       <ambientLight />
-      <OrbitControls />
+      <OrbitControls enableZoom={false}/>
     </>
   );
 }

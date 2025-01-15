@@ -1,5 +1,7 @@
 import { useMemo, useRef } from 'react';
 import GalaxyScene from './GalaxyScene';
+import { TextureLoader } from 'three';
+import { useFrame } from '@react-three/fiber';
 
 interface StarfieldProps {
   count?: number;
@@ -8,6 +10,8 @@ interface StarfieldProps {
 // event listener for mouse button down (orbit controls in use) - pause starfield anim
 
 export default function Starfield({ count = 2000 }: StarfieldProps) {
+  const textureLoader = new TextureLoader();
+  const starMap = textureLoader.load('/star.svg');
   const points = useRef(null);
   const particlePositions = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -16,6 +20,12 @@ export default function Starfield({ count = 2000 }: StarfieldProps) {
     }
     return positions;
   }, [count]);
+
+  useFrame(({ clock }) => {
+    if (points.current) {
+      points.current.rotation.y = clock.getElapsedTime() / 10;
+    }
+  })
 
   return (
     <>
@@ -29,7 +39,7 @@ export default function Starfield({ count = 2000 }: StarfieldProps) {
             itemSize={3}
           />
         </bufferGeometry>
-        <pointsMaterial size={0.015} color='#5786F5' />
+        <pointsMaterial size={0.015} map={starMap} />
       </points>
     </>
   );
