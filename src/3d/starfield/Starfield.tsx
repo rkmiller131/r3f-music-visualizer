@@ -5,11 +5,12 @@ import { useFrame } from '@react-three/fiber';
 
 interface StarfieldProps {
   count?: number;
+  starfieldRotationRef: React.RefObject<any>;
 }
 
 // event listener for mouse button down (orbit controls in use) - pause starfield anim
 
-export default function Starfield({ count = 2000 }: StarfieldProps) {
+export default function Starfield({ count = 2000, starfieldRotationRef }: StarfieldProps) {
   const textureLoader = new TextureLoader();
   const starMap = textureLoader.load('/star.svg');
   const points = useRef(null);
@@ -23,7 +24,10 @@ export default function Starfield({ count = 2000 }: StarfieldProps) {
 
   useFrame(({ clock }) => {
     if (points.current) {
-      points.current.rotation.y = clock.getElapsedTime() / 10;
+      // points.current.rotation.x = Math.sin(clock.getElapsedTime() / 10);
+      // points.current.rotation.y = Math.cos(clock.getElapsedTime() / 10);
+      points.current.rotation.x = starfieldRotationRef.current.currentX;
+      points.current.rotation.y = starfieldRotationRef.current.currentY;
     }
   })
 

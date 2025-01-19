@@ -1,15 +1,13 @@
 import { Canvas } from '@react-three/fiber';
 import Hud from './ui/Hud';
-import Starfield from './3d/starfield/Starfield';
-import VisualizerBars from './3d/VisualizerBars';
+import AudioVisualizers from './3d/AudioVisualizers';
 
 export default function App() {
   return (
     <div className='app'>
       <Hud />
       <Canvas>
-        <Starfield />
-        <VisualizerBars />
+        <AudioVisualizers />
       </Canvas>
     </div>
   );

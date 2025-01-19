@@ -39,7 +39,6 @@ export const fragmentShader = `
     float bar = smoothstep(width, width - 0.001, abs(adjustedX));
 
     // Cut off the bar based on amplitude, starting from bottom
-    // float heightCutoff = step(0.0, amplitude - (1.0 - uv.y));
     float heightCutoff = step(0.0, amplitude - uv.y);
 
     return bar * heightCutoff;
