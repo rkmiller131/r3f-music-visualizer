@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import GalaxyScene from './GalaxyScene';
-import { TextureLoader } from 'three';
+import { Points, TextureLoader } from 'three';
 import { useFrame } from '@react-three/fiber';
 
 interface StarfieldProps {
@@ -8,12 +8,10 @@ interface StarfieldProps {
   starfieldRotationRef: React.RefObject<any>;
 }
 
-// event listener for mouse button down (orbit controls in use) - pause starfield anim
-
 export default function Starfield({ count = 2000, starfieldRotationRef }: StarfieldProps) {
   const textureLoader = new TextureLoader();
   const starMap = textureLoader.load('/star.svg');
-  const points = useRef(null);
+  const points = useRef<Points>(null);
   const particlePositions = useMemo(() => {
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < positions.length; i++) {
@@ -22,12 +20,13 @@ export default function Starfield({ count = 2000, starfieldRotationRef }: Starfi
     return positions;
   }, [count]);
 
-  useFrame(({ clock }) => {
+  useFrame(() => {
     if (points.current) {
-      // points.current.rotation.x = Math.sin(clock.getElapsedTime() / 10);
-      // points.current.rotation.y = Math.cos(clock.getElapsedTime() / 10);
-      points.current.rotation.x = starfieldRotationRef.current.currentX;
-      points.current.rotation.y = starfieldRotationRef.current.currentY;
+      const { currentAngle } = starfieldRotationRef.current;
+      // points.current.rotation.x = Math.sin(clock.getElapsedTime() / currentSpeed);
+      // points.current.rotation.y = Math.cos(clock.getElapsedTime() / currentSpeed);
+      points.current.rotation.x = Math.sin(currentAngle);
+      points.current.rotation.y = Math.cos(currentAngle);
     }
   })
 

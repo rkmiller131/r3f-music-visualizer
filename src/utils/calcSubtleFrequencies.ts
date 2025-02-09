@@ -53,10 +53,6 @@
 // }
 
 export default function calcSubtleFrequencies(data: Uint8Array, starfieldRotationRef: React.RefObject<any>) {
-  // holds a rolling history of freq averages
-  const previousFreqs: number[] = [];
-  const HISTORY_SIZE = 30; // Store last 30 frames of frequency data
-
   // Analyze full frequency spectrum
   let lowFreqSum = 0;
   let midFreqSum = 0;
@@ -73,9 +69,9 @@ export default function calcSubtleFrequencies(data: Uint8Array, starfieldRotatio
     if (freq > 15) {  // Basic noise threshold
       totalSum += freq;
 
-      if (i < lowEnd) {
+      if (i < 10) {
         lowFreqSum += freq;
-      } else if (i < midEnd) {
+      } else if (i < 13) {
         midFreqSum += freq;
       } else {
         highFreqSum += freq;
@@ -87,13 +83,13 @@ export default function calcSubtleFrequencies(data: Uint8Array, starfieldRotatio
   const maxSum = Math.max(lowFreqSum, midFreqSum, highFreqSum);
 
   // Adjust rotation speed based on dominant frequency range
-  let targetSpeed = 1000; // Base speed
+  let targetSpeed = 2000; // Base speed
   if (maxSum === highFreqSum && highFreqSum > 0) {
-    targetSpeed = 500; // Faster for high frequencies
+    targetSpeed = 200; // Faster for high frequencies
   } else if (maxSum === midFreqSum && midFreqSum > 0) {
     targetSpeed = 750; // Medium speed for mid frequencies
   } else if (maxSum === lowFreqSum && lowFreqSum > 0) {
-    targetSpeed = 1000; // Slower for low frequencies
+    targetSpeed = 2000; // Slower for low frequencies
   }
 
   // Smooth speed transitions
@@ -113,6 +109,4 @@ export default function calcSubtleFrequencies(data: Uint8Array, starfieldRotatio
   const interpolationFactor = 0.03;
   starfieldRotationRef.current.currentX += (starfieldRotationRef.current.targetX - starfieldRotationRef.current.currentX) * interpolationFactor;
   starfieldRotationRef.current.currentY += (starfieldRotationRef.current.targetY - starfieldRotationRef.current.currentY) * interpolationFactor;
-
-
 }
