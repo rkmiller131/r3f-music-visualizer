@@ -43,11 +43,11 @@ export default function calcStarfieldRotationSpeed(
     starfieldRotationRef.current.targetSpeed = 0.75; // Slower for low frequencies
   }
 
-  // Smooth speed transition
+  // Smooth speed transition (lerp)
   starfieldRotationRef.current.currentSpeed += (
     starfieldRotationRef.current.targetSpeed - starfieldRotationRef.current.currentSpeed
-  ) * 0.6; // Adjust this value to change how quickly the speed changes
+  ) * 0.5; // Adjust this value to change how quickly the speed changes
 
   // Angle updates based on current speed
-  starfieldRotationRef.current.currentAngle += (10 / starfieldRotationRef.current.currentSpeed) * deltaTime * Math.PI;
+  starfieldRotationRef.current.currentAngle += (15 / starfieldRotationRef.current.currentSpeed) * deltaTime * Math.PI;
 }

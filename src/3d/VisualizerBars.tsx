@@ -1,4 +1,4 @@
-import { fragmentShader, vertexShader } from "./shaders";
+import { fragmentShader, vertexShader } from "./shaders/visualizerBars.shaders";
 
 interface VisualizerBarsProps {
   uniformsRef: React.RefObject<any>;

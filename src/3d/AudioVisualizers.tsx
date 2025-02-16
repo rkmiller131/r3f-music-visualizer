@@ -5,6 +5,7 @@ import VisualizerBars from "./VisualizerBars";
 import Starfield from "./starfield/Starfield";
 import calcMidFreqAmplitude from "../utils/calcMidFreqAmplitude";
 import calcStarfieldRotationSpeed from "../utils/calcStarfieldRotationSpeed";
+import PlanetSphere from "./PlanetSphere";
 
 const AUDIO_FILE = "/Something.mp3";
 
@@ -19,7 +20,7 @@ export default function AudioVisualizers() {
     uAmplitude: { value: 0 },
   });
 
-  useEffect(() => {
+  useEffect(function setUpAudioAndAnalyzer () {
     const fftSize = 32;
     const listener = new AudioListener();
     const audio = new Audio(listener);
@@ -50,6 +51,7 @@ export default function AudioVisualizers() {
     <>
       <VisualizerBars uniformsRef={uniformsRef} />
       <Starfield starfieldRotationRef={starfieldRotationRef}/>
+      <PlanetSphere />
     </>
   );
 }
