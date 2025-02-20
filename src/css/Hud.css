@@ -7,6 +7,11 @@
   height: 100%;
 }
 
+.hud-doors {
+  position: inherit;
+  z-index: 6;
+}
+
 .hud-overlay img {
   height: 100%;
   width: 100%;
