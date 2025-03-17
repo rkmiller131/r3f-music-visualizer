@@ -36,10 +36,13 @@ export default function calcStarfieldRotationSpeed(
 
   // Adjust rotation speed based on dominant frequency range
   if (maxSum === highFreqSum && highFreqSum > 0) {
-    starfieldRotationRef.current.targetSpeed = 0.1; // Faster for high frequencies
+    // starfieldRotationRef.current.targetSpeed = 0.1; // Faster for high frequencies
+    starfieldRotationRef.current.targetSpeed = 0.15; // Faster for high frequencies
   } else if (maxSum === midFreqSum && midFreqSum > 0) {
-    starfieldRotationRef.current.targetSpeed = 0.25; // Medium speed for mid frequencies
+    // starfieldRotationRef.current.targetSpeed = 0.25; // Medium speed for mid frequencies
+    starfieldRotationRef.current.targetSpeed = 0.35; // Medium speed for mid frequencies
   } else if (maxSum === lowFreqSum && lowFreqSum > 0) {
+    // starfieldRotationRef.current.targetSpeed = 0.75; // Slower for low frequencies
     starfieldRotationRef.current.targetSpeed = 0.75; // Slower for low frequencies
   }
 

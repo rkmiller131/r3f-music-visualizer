@@ -17,3 +17,12 @@
   width: 100%;
   z-index: 5;
 }
+
+.hud-shutter {
+  background-color: rgb(2, 6, 12);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 67% 91%, 57% 100%, 43% 100%, 33% 91%, 0 92%);
+  top: -40%;
+}

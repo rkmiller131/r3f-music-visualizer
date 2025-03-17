@@ -13,6 +13,7 @@ export default function Hud() {
         Welcome to Space
       </div>
       <img src='/shipWindow.png' alt='Spaceship HUD' />
+      <div className='hud-shutter'/>
     </div>
   )
 }

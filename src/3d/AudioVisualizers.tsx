@@ -7,7 +7,8 @@ import calcMidFreqAmplitude from "../utils/calcMidFreqAmplitude";
 import calcStarfieldRotationSpeed from "../utils/calcStarfieldRotationSpeed";
 import PlanetSphere from "./PlanetSphere";
 
-const AUDIO_FILE = "/Something.mp3";
+// const AUDIO_FILE = "/Something.mp3";
+const AUDIO_FILE = "/lightInTheDark.mp3";
 
 export default function AudioVisualizers() {
   const analyserRef = useRef<AudioAnalyser | null>(null);
@@ -28,7 +29,7 @@ export default function AudioVisualizers() {
     const loader = new AudioLoader();
     loader.load(AUDIO_FILE, (buffer) => {
       audio.setBuffer(buffer);
-      audio.play();
+      // audio.play();
     });
 
     analyserRef.current = new AudioAnalyser(audio, fftSize);
